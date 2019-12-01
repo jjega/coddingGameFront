@@ -1,39 +1,62 @@
 <div>
-    <b-row>
-      <b-col>
-        <cg-logout></cg-logout>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col class="bg-black" sm="4">
-        <b-table striped hover :items="gladiator_types"></b-table>
+  <b-row>
+    <b-col>
+      <cg-logout></cg-logout>
+    </b-col>
+  </b-row>
+  <b-row>
+    <b-col class="bg-black" sm="4">
+      <b-table striped hover :items="gladiator_types"></b-table>
+    </b-col>
+    <b-col sm="8">
+      <b-form @submit.prevent="onSubmit" v-if="calendar_data.length">
+        <div v-if="fighters">
+          <div v-for="(fighter, i) in fighters">
+            <b-form-group label="Select Your Gladiator">
+              <b-form-radio-group
+                v-model="fight.fight[i].gladiators"
+                :options="convertGladiators(fighter.gladiators)"
+                buttons
+                button-variant="primary"
+                size="lg"
+                name="gladiator"
+              ></b-form-radio-group>
+            </b-form-group>
+            <b-form-group label="Select a weapon" v-if="fighter.weapons">
+              <b-form-radio-group
+                v-model="fight.fight[i].weapons"
+                :options="convertWeapons(fighter.weapons)"
+                buttons
+                button-variant="secondary"
+                size="lg"
+                name="weapons"
+              ></b-form-radio-group>
+            </b-form-group>
+          </div>
 
-      </b-col>
-      <b-col sm="8">
-          <b-form @submit.prevent="onSubmit" v-if="calendar_data.length">
-              
-              <b-button variant="primary" type="submit" >Submit</b-button>
-              <b-table 
-                striped 
-                selectable
-                @row-selected="onRowSelected" 
-                :items="calendar_data" 
-                responsive="sm"
-                select-mode="single">
+          <b-button variant="primary" type="submit">Submit</b-button>
+        </div>
 
-                  <template v-slot:cell(selected)="{ rowSelected }">
-                      <template v-if="rowSelected">
-                        <span aria-hidden="true">&check;</span>
-                        <span class="sr-only">Selected</span>
-                      </template>
-                      <template v-else>
-                        <span aria-hidden="true">&nbsp;</span>
-                        <span class="sr-only">Not selected</span>
-                      </template>
-                    </template>
-              
-              </b-table>
-          </b-form>
-      </b-col>
-    </b-row>
+        <b-table
+          striped
+          selectable
+          @row-selected="onRowSelected"
+          :items="calendar_data"
+          responsive="sm"
+          select-mode="single"
+        >
+          <template v-slot:cell(selected)="{ rowSelected }">
+            <template v-if="rowSelected">
+              <span aria-hidden="true">&check;</span>
+              <span class="sr-only">Selected</span>
+            </template>
+            <template v-else>
+              <span aria-hidden="true">&nbsp;</span>
+              <span class="sr-only">Not selected</span>
+            </template>
+          </template>
+        </b-table>
+      </b-form>
+    </b-col>
+  </b-row>
 </div>

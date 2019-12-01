@@ -53,18 +53,19 @@ export default {
   mounted() {
     this.getGladiatorTypes().then(getGladiatorType => {
       this.gladiator_types = getGladiatorType;
-      this.option_checkbox = this.gladiator_types.map(gladiator_type => {
-        return {
-          text: gladiator_type.label,
-          value: { gladiator_type }
-        };
-      });
+      
     });
     this.getCalendar().then(calendar => {
       this.calendar_data = calendar;
     });
   },
   methods: {
+    onSubmit() {
+      const { fight } = this;
+      const fights = fight.fight.map((fight => CalendarInfoService.updateCalendarsInfo(fight)));
+      Promise.all(fights);
+      
+    },
     getCalendar() {
       return CalendarService.getCalendars().then(response => {
         return response.data.data.getCalendars;
@@ -76,11 +77,22 @@ export default {
       });
     },
     onRowSelected(calendar) {
+      this.fight = calendar[0];
       const fighters = calendar[0].fight.map(fight => GladiatorTypeService.getGladiatorTypes(fight.gladiator_type));
 
       Promise.all(fighters).then(responses => {
         this.fighters = responses.map(response => response.data.data.getGladiatorType[0])
       });
+    },
+    convertGladiators(gladiateurs) {
+      return gladiateurs.map(gladiateur => {
+        return {text: `${gladiateur.first_name} ${gladiateur.last_name}`, value: gladiateur}
+      })
+    },
+    convertWeapons(weapons) {
+      return weapons.map(gladiateur => {
+        return {text: `${weapons.label}}`, value: weapons}
+      })
     }
   }
 };
