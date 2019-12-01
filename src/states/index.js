@@ -31,7 +31,7 @@ const store = new Vuex.Store({
       state.user   = user;
     },
     logout(state) {
-      localStorage.delItem('token');
+      localStorage.removeItem('token');
       state.isAuth = false;
       state.token  = null;
       state.type   = null;
