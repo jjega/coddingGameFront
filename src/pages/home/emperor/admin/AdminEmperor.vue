@@ -11,6 +11,9 @@ export default {
   components: {
   },
   methods: {
+  },
+  beforeMount: function() {
+    
   }
 };
 </script>

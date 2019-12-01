@@ -3,6 +3,7 @@
 <script>
 import router from "../../router";
 import EmperorService from "../../services/EmperorService";
+import LudusService from "../../services/LudusService";
 
 export default {
   name: "Login",
@@ -17,33 +18,42 @@ export default {
     };
   },
   props: ["type"],
-  created() {
-    // if allready connected redirect to Home
-    router;
+  created: function() {
+    const { isAuth, type } = this.$store.getters;
+
+    if (isAuth) {
+      if (type === 'emperor') {
+        router.push({ name: 'AdminEmperor' });
+      } else {
+        router.push({ name: 'AdminLudus' });
+      }
+    }
   },
   methods: {
     onSubmit() {
-      const { type }  = this;
+      const { type, form }  = this;
       
       switch (type) {
         case 'emperor':
-          EmperorService.login(this.form)
-          .then(emperor => {
-            console.log(emperor);
+          EmperorService.login(form)
+          .then(response => {
+            const emperor = response.data.data.getEmperors[0];
+
+            this.$store.dispatch('LOGIN_EMPEROR', emperor);
+            router.push({ name: 'AdminEmperor' });
           });
           break;
         case 'ludus':
-          LudusService.login(this.form)
-          .then(ludus => {
-            console.log(ludus);
+          LudusService.login(form)
+          .then(response => {
+            const ludus = response.data.data.getLudis[0];
+            
+            this.$store.dispatch('LOGIN_LUDUS', ludus);
+            router.push({ name: 'AdminLudus' });
           });
           break;
       }
-
-
-      // const emperor = await EmperorService.login(this.form);
-
-      //this.$store.dispatch('');
+      
     },
     onReset(evt) {
       evt.preventDefaudlt();

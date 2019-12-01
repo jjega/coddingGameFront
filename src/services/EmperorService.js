@@ -4,7 +4,7 @@ export default {
   login(loginInfo) {
     try {
       const { email, password } = loginInfo;
-      // return Api().post('/graphql', loginInfo);
+      
       return Api().post('/graphql', {query: `query {
         getEmperors(email: "${email}", password: "${password}") {
           id

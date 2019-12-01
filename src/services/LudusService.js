@@ -13,7 +13,7 @@ export default {
           ludus_name
           ludus_fistname
           token
-          empire
+          empire {id, label, population}
         }
       }`});
     } catch (error) {
@@ -21,4 +21,5 @@ export default {
     }
       
   }
+  
 }

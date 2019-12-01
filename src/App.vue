@@ -20,4 +20,11 @@ export default {
     height: 100vh;
     padding-top: 50vh;
   }
+  .carre {
+    border: 1px solid #4C4C4C
+  }
+  .bg-red {
+    background-color: red;
+    color: #4C4C4C
+  }
 </style>

@@ -1,0 +1,49 @@
+<div>
+      <b-row>
+        <b-col>
+          <cg-logout></cg-logout>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col class="bg-black" sm="4">
+          <b-table striped hover :items="gladiator_types"></b-table>
+
+        </b-col>
+        <b-col sm="8">
+            <b-form @submit.prevent="onSubmit" >
+                <b-form-group label="Select at least two fighter type and a date">
+                  <b-form-checkbox-group
+                    v-model="form.fight"
+                    :options="option_checkbox"
+                    buttons
+                    button-variant="primary"
+                    size="lg"
+                    name="buttons-2"
+                  ></b-form-checkbox-group>
+                  <b-form-input v-model="form.date" type="date"></b-form-input>
+                </b-form-group>
+                <b-button variant="primary" type="submit" >Submit</b-button>
+                <b-table 
+                  striped 
+                  selectable
+                  @row-selected="onRowSelected" 
+                  :items="calendar_data" 
+                  responsive="sm"
+                  select-mode="single">
+
+                    <template v-slot:cell(selected)="{ rowSelected }">
+                        <template v-if="rowSelected">
+                          <span aria-hidden="true">&check;</span>
+                          <span class="sr-only">Selected</span>
+                        </template>
+                        <template v-else>
+                          <span aria-hidden="true">&nbsp;</span>
+                          <span class="sr-only">Not selected</span>
+                        </template>
+                      </template>
+                
+                </b-table>
+            </b-form>
+        </b-col>
+      </b-row>
+  </div>
