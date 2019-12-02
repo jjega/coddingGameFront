@@ -13,7 +13,6 @@ export default {
         getCalendars ${query} {
           id
           date
-          hasAnimal
           fight {
             id
             gladiator_type {id, label, speed, def, dist_atk}

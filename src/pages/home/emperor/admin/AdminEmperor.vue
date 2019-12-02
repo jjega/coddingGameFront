@@ -20,7 +20,6 @@ export default {
         date: "",
         fight: [],
         ludis: {},
-        hasAnimal: false
       },
       options: [{ text: "", value: "" }]
     };
