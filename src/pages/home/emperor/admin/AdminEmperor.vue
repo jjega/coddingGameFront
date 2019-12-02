@@ -90,8 +90,8 @@ export default {
       })
     },
     convertWeapons(weapons) {
-      return weapons.map(gladiateur => {
-        return {text: `${weapons.label}}`, value: weapons}
+      return weapons.map(weapon => {
+        return {text: `${weapon.label}`, value: weapon}
       })
     }
   }
