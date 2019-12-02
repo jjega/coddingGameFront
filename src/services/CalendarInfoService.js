@@ -28,7 +28,7 @@ export default {
   },
   updateCalendarsInfo(data) {
     let query = '';
-
+console.log('data',data);
     if (data.id) {
       query += `id: ${data.id},`;
     }
@@ -41,8 +41,8 @@ export default {
     if (data.gladiator_type) {
       query += `gladiator_type: ${data.gladiator_type.id},`;
     }
-    if (data.weapon) {
-      query += `weapon: ${data.weapon.id}`;
+    if (data.weapons) {
+      query += `weapon: ${data.weapons.id}`;
     }
 
     return Api().post('/graphql', {query: `mutation {
