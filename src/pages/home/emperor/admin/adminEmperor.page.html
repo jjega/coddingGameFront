@@ -28,7 +28,7 @@
             </b-col>
           </b-row>
       <b-form @submit.prevent="onSubmit" v-if="calendar_data.length">
-        <div v-if="fighters">
+        <div v-if="fighters.length">
           <div v-for="(fighter, i) in fighters" class="group">
             <b-form-group label="Select Your Gladiator">
               <b-form-radio-group
