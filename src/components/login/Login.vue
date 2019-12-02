@@ -14,7 +14,8 @@ export default {
         password: ""
       },
       show: true,
-      label: ""
+      label: "",
+      message: "",
     };
   },
   props: ["type"],
@@ -37,19 +38,30 @@ export default {
         case 'emperor':
           EmperorService.login(form)
           .then(response => {
-            const emperor = response.data.data.getEmperors[0];
+            console.log(response.data.data.getEmperors);
+            if (response.data.data.getEmperors) {
+              const emperor = response.data.data.getEmperors[0];
 
-            this.$store.dispatch('LOGIN_EMPEROR', emperor);
-            router.push({ name: 'AdminEmperor' });
+              this.$store.dispatch('LOGIN_EMPEROR', emperor);
+              router.push({ name: 'AdminEmperor' });
+            } else {
+              this.message = "Incorect password or email";
+            }
+            
           });
           break;
         case 'ludus':
           LudusService.login(form)
           .then(response => {
-            const ludus = response.data.data.getLudis[0];
+            if (response.data.data.getEmperors) {
+              const ludus = response.data.data.getLudis[0];
             
-            this.$store.dispatch('LOGIN_LUDUS', ludus);
-            router.push({ name: 'AdminLudus' });
+              this.$store.dispatch('LOGIN_LUDUS', ludus);
+              router.push({ name: 'AdminLudus' });
+            } else {
+              this.message = "Incorect password or email";
+            }
+            
           });
           break;
       }

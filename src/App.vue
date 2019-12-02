@@ -34,4 +34,7 @@ export default {
   .logout {
     margin-bottom: 20px;
   }
+  .error {
+    color: red;
+  }
 </style>
