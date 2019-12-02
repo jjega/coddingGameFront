@@ -1,17 +1,35 @@
 <div>
   <b-row>
-    <b-col>
-      <cg-logout></cg-logout>
+    <b-col class="bg-black data" sm="4" >
+        <b-table
+        striped
+        selectable
+        @row-selected="onRowSelected"
+        :items="calendar_data"
+        responsive="sm"
+        select-mode="single"
+      >
+        <template v-slot:cell(selected)="{ rowSelected }">
+          <template v-if="rowSelected">
+            <span aria-hidden="true">&check;</span>
+            <span class="sr-only">Selected</span>
+          </template>
+          <template v-else>
+            <span aria-hidden="true">&nbsp;</span>
+            <span class="sr-only">Not selected</span>
+          </template>
+        </template>
+      </b-table>
     </b-col>
-  </b-row>
-  <b-row>
-    <b-col class="bg-black" sm="4">
-      <b-table striped hover :items="gladiator_types"></b-table>
-    </b-col>
-    <b-col sm="8">
+    <b-col sm="8" class="data">
+        <b-row class="logout">
+            <b-col>
+              <cg-logout></cg-logout>
+            </b-col>
+          </b-row>
       <b-form @submit.prevent="onSubmit" v-if="calendar_data.length">
         <div v-if="fighters">
-          <div v-for="(fighter, i) in fighters">
+          <div v-for="(fighter, i) in fighters" class="group">
             <b-form-group label="Select Your Gladiator">
               <b-form-radio-group
                 v-model="fight.fight[i].gladiators"
@@ -33,29 +51,10 @@
               ></b-form-radio-group>
             </b-form-group>
           </div>
-
           <b-button variant="primary" type="submit">Submit</b-button>
         </div>
 
-        <b-table
-          striped
-          selectable
-          @row-selected="onRowSelected"
-          :items="calendar_data"
-          responsive="sm"
-          select-mode="single"
-        >
-          <template v-slot:cell(selected)="{ rowSelected }">
-            <template v-if="rowSelected">
-              <span aria-hidden="true">&check;</span>
-              <span class="sr-only">Selected</span>
-            </template>
-            <template v-else>
-              <span aria-hidden="true">&nbsp;</span>
-              <span class="sr-only">Not selected</span>
-            </template>
-          </template>
-        </b-table>
+        
       </b-form>
     </b-col>
   </b-row>

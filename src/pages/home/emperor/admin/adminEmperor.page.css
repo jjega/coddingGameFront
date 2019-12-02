@@ -1,0 +1,8 @@
+.group {
+  border: 1px solid #4c4c4c12;
+    border-radius: 4%;
+    padding: 5%;
+    width: 100%;
+    margin-bottom: 2%;
+    box-shadow: 19px 7px 7px 4px #495057;
+}

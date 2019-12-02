@@ -27,4 +27,11 @@ export default {
     background-color: red;
     color: #4C4C4C
   }
+  .data {
+    height: 100vh;
+    overflow: auto;
+  }
+  .logout {
+    margin-bottom: 20px;
+  }
 </style>
