@@ -89,7 +89,6 @@ export default {
         let data = {...calendar}
         if (data.fight) {
           for (let i = 0; i < data.fight.length; i++) {
-            console.log(i);
             data[`Type ${i + 1}`] = data.fight[i].gladiator_type.label;
           }
           delete data.fight;
