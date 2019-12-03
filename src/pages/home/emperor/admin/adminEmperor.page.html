@@ -1,5 +1,9 @@
 <div>
   <b-row>
+    <b-col>
+        <p class="error" v-if="!calendar_data.length">Need to contact the Ludus, no fight prepared</p>
+    </b-col>
+    
     <b-col class="bg-black data"  >
         <b-table
         striped
@@ -8,6 +12,7 @@
         :items="formatData(calendar_data)"
         responsive="sm"
         select-mode="single"
+        hover
       >
         <template v-slot:cell(selected)="{ rowSelected }">
           <template v-if="rowSelected">
