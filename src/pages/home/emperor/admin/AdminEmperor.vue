@@ -50,10 +50,6 @@ export default {
     }
   },
   mounted() {
-    this.getGladiatorTypes().then(getGladiatorType => {
-      this.gladiator_types = getGladiatorType;
-      
-    });
     this.getCalendar().then(calendar => {
       this.calendar_data = calendar;
     });
@@ -70,14 +66,9 @@ export default {
         return response.data.data.getCalendars;
       });
     },
-    getGladiatorTypes() {
-      return GladiatorTypeService.getGladiatorTypes().then(response => {
-        return response.data.data.getGladiatorType;
-      });
-    },
     onRowSelected(calendar) {
-      this.fight = calendar[0];
-      const fighters = calendar[0].fight.map(fight => GladiatorTypeService.getGladiatorTypes(fight.gladiator_type));
+      this.fight = this.calendar_data.filter((fight) => fight.id === calendar[0].id)[0];
+      const fighters = this.fight.fight.map(fight => GladiatorTypeService.getGladiatorTypes(fight.gladiator_type));
 
       Promise.all(fighters).then(responses => {
         this.fighters = responses.map(response => response.data.data.getGladiatorType[0])
@@ -92,6 +83,20 @@ export default {
       return weapons.map(weapon => {
         return {text: `${weapon.label}`, value: weapon}
       })
+    },
+    formatData(calendars) {
+      return calendars.map(calendar => {
+        let data = {...calendar}
+        if (data.fight) {
+          for (let i = 0; i < data.fight.length; i++) {
+            console.log(i);
+            data[`Type ${i + 1}`] = data.fight[i].gladiator_type.label;
+          }
+          delete data.fight;
+        }
+
+        return data;
+      });
     }
   }
 };

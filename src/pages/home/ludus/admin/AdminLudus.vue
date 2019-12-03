@@ -17,7 +17,7 @@ export default {
         id: 0,
         date: "",
         fight: [],
-        ludis: {},
+        ludis: {}
       },
       options: [{ text: "", value: "" }]
     };
@@ -85,7 +85,7 @@ export default {
             let calendarInfos = form.fight.map(fight => {
               fight["calendar"] = calendar.data.data.updateCalendars;
 
-              return CalendarInfoService.addCalendarsInfo(fight)
+              return CalendarInfoService.addCalendarsInfo(fight);
             });
 
             Promise.all(calendarInfos).then(() => {
@@ -116,12 +116,27 @@ export default {
       }
     },
     onRowSelected(calendar) {
+      console.log(calendar);
       this.form = { ...calendar[0] };
 
-      this.form.fight =  [];
+      this.form.fight = [];
       this.form.date = moment(this.form.date, "DD-MM-YYYY").format(
         "YYYY-MM-DD"
       );
+    },
+    formatData(calendars) {
+      return calendars.map(calendar => {
+        if (calendar.fight) {
+          for (let i = 0; i < calendar.fight.length; i++) {
+            console.log(i);
+            calendar[`Gladiator_${i + 1}`] =
+              calendar.fight[i].gladiator_type.label;
+          }
+          delete calendar.fight;
+        }
+
+        return calendar;
+      });
     }
   }
 };

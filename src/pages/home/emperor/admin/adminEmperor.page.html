@@ -5,7 +5,7 @@
         striped
         selectable
         @row-selected="onRowSelected"
-        :items="calendar_data"
+        :items="formatData(calendar_data)"
         responsive="sm"
         select-mode="single"
       >

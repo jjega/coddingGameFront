@@ -53,7 +53,7 @@ export default {
         case 'ludus':
           LudusService.login(form)
           .then(response => {
-            if (response.data.data.getEmperors) {
+            if (response.data.data.getLudis) {
               const ludus = response.data.data.getLudis[0];
             
               this.$store.dispatch('LOGIN_LUDUS', ludus);

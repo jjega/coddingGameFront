@@ -37,4 +37,9 @@ export default {
   .error {
     color: red;
   }
+  .table-data {
+    box-shadow: 5px 4px 8px 5px;
+    width: 95%;
+    margin-top: 20px;
+  }
 </style>
