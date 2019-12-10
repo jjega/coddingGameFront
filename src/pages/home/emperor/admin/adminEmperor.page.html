@@ -1,7 +1,7 @@
 <div>
   <b-row>
-    <b-col>
-        <p class="error" v-if="!calendar_data.length">Need to contact the Ludus, no fight prepared</p>
+    <b-col v-if="!calendarData.length">
+        <p class="error" >Need to contact the Ludus, no fight prepared</p>
     </b-col>
     
     <b-col class="bg-black data"  >
@@ -9,7 +9,7 @@
         striped
         selectable
         @row-selected="onRowSelected"
-        :items="formatData(calendar_data)"
+        :items="formatData(calendarData)"
         responsive="sm"
         select-mode="single"
         hover
@@ -32,7 +32,7 @@
               <cg-logout></cg-logout>
             </b-col>
           </b-row>
-      <b-form @submit.prevent="onSubmit" v-if="calendar_data.length">
+      <b-form @submit.prevent="onSubmit" v-if="calendarData.length">
         <div v-if="fighters.length">
           <div v-for="(fighter, i) in fighters" class="group">
             <b-form-group label="Select Your Gladiator">

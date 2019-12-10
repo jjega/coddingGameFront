@@ -6,7 +6,7 @@ import GladiatorTypeService from "../../../../services/GladiatorTypeService";
 import CalendarService from "../../../../services/CalendarService";
 import CalendarInfoService from "../../../../services/CalendarInfoService";
 import Logout from "../../../../components/logout/Logout";
-
+// TODO add radar chart
 export default {
   name: "AdminLudus",
   data() {
@@ -28,7 +28,7 @@ export default {
     "cg-logout": Logout
   },
   computed: {
-    option_checkbox: {
+    optionCheckbox: {
       get: function() {
         return this.options;
       },
@@ -36,7 +36,7 @@ export default {
         this.options = data;
       }
     },
-    calendar_data: {
+    calendarData: {
       get: function() {
         return this.calendar;
       },
@@ -52,7 +52,7 @@ export default {
   mounted() {
     this.getGladiatorTypes().then(getGladiatorType => {
       this.gladiator_types = getGladiatorType;
-      this.option_checkbox = this.gladiator_types.map(gladiator_type => {
+      this.optionCheckbox = this.gladiator_types.map(gladiator_type => {
         return {
           text: gladiator_type.label,
           value: JSON.stringify(gladiator_type)
@@ -60,7 +60,7 @@ export default {
       });
     });
     this.getCalendar().then(calendar => {
-      this.calendar_data = calendar;
+      this.calendarData = calendar;
     });
   },
   methods: {
@@ -116,7 +116,7 @@ export default {
 
               Promise.all(calendarInfos).then(() => {
                 this.getCalendar().then(calendar => {
-                  this.calendar_data = calendar;
+                  this.calendarData = calendar;
                 });
               });
             });
@@ -131,7 +131,7 @@ export default {
             });
             Promise.all(calendarInfos).then(() => {
               this.getCalendar().then(calendar => {
-                this.calendar_data = calendar;
+                this.calendarData = calendar;
                 this.form = {
                   id: 0,
                   date: "",

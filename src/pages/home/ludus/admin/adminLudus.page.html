@@ -14,7 +14,7 @@
                 <b-form-group label="Select at least two fighter type and a date">
                   <b-form-checkbox-group
                     v-model="form.fight"
-                    :options="option_checkbox"
+                    :options="optionCheckbox"
                     buttons
                     button-variant="primary"
                     size="lg"
@@ -29,7 +29,7 @@
                   striped 
                   selectable
                   @row-selected="onRowSelected" 
-                  :items="formatData(calendar_data)" 
+                  :items="formatData(calendarData)" 
                   responsive="sm"
                   select-mode="single">
 

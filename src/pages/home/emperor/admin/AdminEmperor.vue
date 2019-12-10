@@ -28,15 +28,7 @@ export default {
     "cg-logout": Logout
   },
   computed: {
-    option_checkbox: {
-      get: function() {
-        return this.options;
-      },
-      set: function(data) {
-        this.options = data;
-      }
-    },
-    calendar_data: {
+    calendarData: {
       get: function() {
         return this.calendar;
       },
@@ -51,7 +43,7 @@ export default {
   },
   mounted() {
     this.getCalendar().then(calendar => {
-      this.calendar_data = calendar;
+      this.calendarData = calendar;
     });
   },
   methods: {
@@ -67,7 +59,7 @@ export default {
       });
     },
     onRowSelected(calendar) {
-      this.fight = this.calendar_data.filter((fight) => fight.id === calendar[0].id)[0];
+      this.fight = this.calendarData.filter((fight) => fight.id === calendar[0].id)[0];
       const fighters = this.fight.fight.map(fight => GladiatorTypeService.getGladiatorTypes(fight.gladiator_type));
 
       Promise.all(fighters).then(responses => {
@@ -76,7 +68,8 @@ export default {
     },
     convertGladiators(gladiateurs) {
       return gladiateurs.map(gladiateur => {
-        return {text: `${gladiateur.first_name} ${gladiateur.last_name}`, value: gladiateur}
+        const {first_name, last_name} = gladiateur;
+        return {text: `${first_name} ${last_name}`, value: gladiateur}
       })
     },
     convertWeapons(weapons) {
